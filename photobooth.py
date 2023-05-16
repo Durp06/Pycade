@@ -1,20 +1,30 @@
 import cv2
+import mediapipe as mp
+from datetime import datetime
+import os
 
-webcam_port = 0
-cam = VideoCapture(webcam_port) #initializes cam as default webcam for computer
+mp_hands = mp.solutions.hands
+mp_drawing = mp.solutions.drawing_utils
 
-result = cam.read()
-image = cam.read()
+counter = 0
 
-if result:
-        imshow ("Photobooth", image)
-        imwrite("Photobooth.png", image)
+webcam = cv2.VideoCapture(0)
 
-        waitKey(0)
-        destroyWindow("Photobooth")
+destination_folder = "path/to/your/folder" #add folder path, same one as flappybrid images
 
-else:
-    print("No image detected! Try again")
+while webcam.isOpened():
+    success, img = webcam.read()
 
+    if cv2.waitKey(5) == ord("e"):
+        current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = f"Photobooth_{counter}_{current_time}.png"
+        file_path = os.path.join(destination_folder, filename)
+        cv2.imwrite(filename, img)
+        counter += 1
 
-#https://www.geeksforgeeks.org/how-to-capture-a-image-from-webcam-in-python/
+    cv2.imshow("Photobooth", img)
+    if cv2.waitKey(5) == ord("q"):
+        break
+
+webcam.release()
+cv2.destroyAllWindows()

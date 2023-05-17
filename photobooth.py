@@ -7,10 +7,11 @@ mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 
 counter = 0
+directory = os.getcwd()
 
 webcam = cv2.VideoCapture(0)
 
-destination_folder = "path/to/your/folder" #add folder path, same one as flappybrid images
+destination_folder = f"{directory}\\photobooth-images" #add folder path, same one as flappybrid images
 
 while webcam.isOpened():
     success, img = webcam.read()

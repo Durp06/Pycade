@@ -11,20 +11,21 @@ directory = os.getcwd()
 
 webcam = cv2.VideoCapture(0)
 
-destination_folder = f"{directory}\\photobooth-images" #add folder path, same one as flappybrid images
+destination_folder = f"{directory}\\photobooth-images"
 
 while webcam.isOpened():
     success, img = webcam.read()
 
-    if cv2.waitKey(5) == ord("e"):
+    if cv2.waitKey(1) == ord("e"):
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"Photobooth_{counter}_{current_time}.png"
-        file_path = os.path.join(destination_folder, filename)
-        cv2.imwrite(filename, img)
+        #file_path = os.path.join(destination_folder, filename)
+        #cv2.imwrite(filename, img)
+        cv2.imwrite(os.path.join(destination_folder, filename), img)
         counter += 1
 
     cv2.imshow("Photobooth", img)
-    if cv2.waitKey(5) == ord("q"):
+    if cv2.waitKey(1) == ord("q"):
         break
 
 webcam.release()

@@ -61,15 +61,16 @@ def draw():
     text = TITLE_FONT.render("PYCADE", 1, BLACK)
     win.blit(text, (WIDTH/2 - text.get_width()/2, 20))
 
+    #draw lines
+    pygame.draw.rect(win, BLACK, Rect(284, 94, 225, 5)) #underline
+    pygame.draw.rect(win, BLACK, Rect(400, 110, 5, 335)) #dividing line
 
     #draw buttons
-    pygame.draw.rect(win, BLACK, Rect(284, 94, 225, 5))
-    pygame.draw.rect(win, BLACK, Rect(400, 110, 5, 335))
-    pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90), 2)
-    pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2)
-    pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2)
-    pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2)
-
+    pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
+    pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2) # bottom right
+    pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2) # top left
+    pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2) # bottom left
+    
     
     pygame.display.update()
 
@@ -92,13 +93,9 @@ while run:
         if event.type == pygame.MOUSEBUTTONDOWN:
             m_x, m_y = pygame.mouse.get_pos()
             print(pygame.mouse.get_pos())
-            for letter in letters:
-                x, y, ltr, visible = letter
-                if visible:
-                    distance = math.sqrt((x-m_x)**2 + (y-m_y)**2) #distance formula
-                    if distance < RADIUS:
-                        letter[3]=False #set the 3rd index (boolean) to false. 
-                        
+            
+    #pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
+
 
     draw()
 

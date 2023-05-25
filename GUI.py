@@ -10,7 +10,7 @@ pygame.init()
 WIDTH = 800
 HEIGHT = 500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Hangman")
+pygame.display.set_caption("Pycade")
 
 #button vars
 RADIUS = 20
@@ -19,10 +19,10 @@ letters = []
 startx = round((WIDTH - (RADIUS * 2 + GAP) * 13) / 2)
 starty = 370
 A = 65
-for i in range (26): # will add coordinates of letters to the array
-    x = startx + GAP * 2 + ((RADIUS * 2 + GAP ) * (i % 13)) # says off of edge of screen | distance between buttons and the gap | simulates having 2 rows / remainder will count up normally intil its >13 and then it will re count back from 0 in the "second row"
-    y = starty + ((i // 13) * (GAP + 25) + RADIUS * 2 ) # uses int division to ust give a num without decimal
-    letters.append([x, y, chr(A+i), True]) # x coord, y coord, letter, if button has been clicked
+for i in range (26): 
+    x = startx + GAP * 2 + ((RADIUS * 2 + GAP ) * (i % 13)) 
+    y = starty + ((i // 13) * (GAP + 25) + RADIUS * 2 ) 
+    letters.append([x, y, chr(A+i), True]) 
 
 #font
 LETTER_FONT = pygame.font.SysFont("comicsans", 30)
@@ -58,28 +58,21 @@ def draw():
     win.fill(WHITE)
 
     #draw title
-    text = TITLE_FONT.render("HANGMAN", 1, BLACK)
+    text = TITLE_FONT.render("PYCADE", 1, BLACK)
     win.blit(text, (WIDTH/2 - text.get_width()/2, 20))
-    #draw word
-    display_word = ""
-    for letter in word:
-        if letter in guessed:
-            display_word += letter + " "
-        else:
-            display_word += "_ "
-    text = WORD_FONT.render(display_word, 1, BLACK)
-    win.blit(text, (350, 200))
+
 
     #draw buttons
-    for letter in letters:
-        x, y, ltr, visible = letter
-        if visible:
-            pygame.draw.circle(win, BLACK, (x, y), RADIUS, 3)
-            text = LETTER_FONT.render(ltr, 1, BLACK)
-            win.blit(text, (x-text.get_width()/2, y-text.get_height()/2))
+    pygame.draw.rect(win, BLACK, Rect(284, 94, 225, 5))
+    pygame.draw.rect(win, BLACK, Rect(400, 110, 5, 335))
+    pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90), 2)
+    pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2)
+    pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2)
+    pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2)
 
-    win.blit(images[hangman_status], (150, 100))
+    
     pygame.display.update()
+
 
 def display_message(message):
     pygame.time.delay(1000) #wait 1 second
@@ -98,6 +91,7 @@ while run:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             m_x, m_y = pygame.mouse.get_pos()
+            print(pygame.mouse.get_pos())
             for letter in letters:
                 x, y, ltr, visible = letter
                 if visible:

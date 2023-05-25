@@ -77,6 +77,7 @@ def flappygame():
 							up_pipes,
 							down_pipes)
 		if game_over:
+			pygame.quit()
 			return
 
 		# check for your_score
@@ -250,3 +251,5 @@ if __name__ == "__main__":
 					window.blit(game_images['sea_level'], (ground, elevation))
 					pygame.display.update()
 					framepersecond_clock.tick(framepersecond)
+
+pygame.quit()

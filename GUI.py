@@ -98,9 +98,7 @@ while run:
                     distance = math.sqrt((x-m_x)**2 + (y-m_y)**2) #distance formula
                     if distance < RADIUS:
                         letter[3]=False #set the 3rd index (boolean) to false. 
-                        guessed.append(ltr) #add the letter to the guessed list.
-                        if ltr not in word:
-                            hangman_status -= 1 #reduce the hangman status by 1.
+                        
 
     draw()
 

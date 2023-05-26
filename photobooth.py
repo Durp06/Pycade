@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from datetime import datetime
 import os
+import keyboard
 
 counter = 0
 directory = os.getcwd()
@@ -17,8 +18,7 @@ show_flash = False
 
 while webcam.isOpened():
     success, img = webcam.read()
-
-    if cv2.waitKey(1) == ord("e"):
+    if keyboard.is_pressed('e'):
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"Photobooth_{current_time}.png"
         cv2.imwrite(os.path.join(destination_folder, filename), img)
@@ -27,7 +27,7 @@ while webcam.isOpened():
         show_flash = True
     
     text = "Press 'e' to take a photo, 'q' to quit"
-    cv2.putText(img, text, (100, 470), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 215, 255), 2)
+    cv2.putText(img, text, (200, 470), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 215, 255), 2)
     
     # flash
     if show_flash:
@@ -41,7 +41,7 @@ while webcam.isOpened():
     cv2.imshow("Photobooth", img)
     
 
-    if cv2.waitKey(1) == ord("q"):
+    if keyboard.is_pressed('q'):
         break
     
 webcam.release()

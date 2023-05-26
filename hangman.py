@@ -78,7 +78,7 @@ def draw():
             text = LETTER_FONT.render(ltr, 1, BLACK)
             win.blit(text, (x-text.get_width()/2, y-text.get_height()/2))
 
-    win.blit(images[hangman_status], (150, 100))
+    win.blit(images[hangman_status], (150, 120))
     pygame.display.update()
 
 def display_message(message):

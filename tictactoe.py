@@ -6,17 +6,13 @@ from pygame.locals import *
 import subprocess
 
 directory = os.getcwd()
-hang_file_path = f"{directory}\\hangman.py"
-flap_file_path = f"{directory}\\flappy.py"
-photo_file_path = f"{directory}\\photobooth.py"
-rand_file_path = f"{directory}\\random_1.py"
 
 #window
 pygame.init()
 WIDTH = 800
 HEIGHT = 500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Pycade")
+pygame.display.set_caption("Tic Tac Toe")
 
 #button vars
 RADIUS = 20
@@ -38,6 +34,7 @@ TITLE_FONT = pygame.font.SysFont("comicsans", 60)
 #colors
 WHITE = (255,255,255)
 BLACK = (0, 0, 0,)
+GREEN = (0, 255, 0)
 
 #game loop
 FPS = 60
@@ -54,30 +51,41 @@ class Button:
         # Check if the mouse is hovering over the button
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             # Use a lighter color when the mouse is hovering
-            hover_color = tuple(min(c + 30, 255) for c in self.color)
+            hover_color = tuple(min(c + 0, 200) for c in self.color)
             pygame.draw.rect(screen, hover_color, self.rect)
         else:
             pygame.draw.rect(screen, self.color, self.rect)
         
-        font = pygame.font.Font(None, 24)
-        text = font.render(self.text, True, WHITE)
+        font = pygame.font.Font(None, 80)
+        text = font.render(self.text, True, BLACK)
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
 
-    #draw buttons
-    # pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
-    # pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2) # bottom right
-    # pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2) # top left
-    # pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2) # bottom left
+    def setText(self, screen, msg):
+        self.text = msg
+        font = pygame.font.Font(None, 80)
+        text = font.render(msg, True, BLACK)
+        text_rect = text.get_rect(center=self.rect.center)
+        screen.blit(text, text_rect)
+    
+    def getText(self):
+        return self.text
+
 
 #buttons
-start_button = Button(120, 120, 150, 50, BLACK, "Start")
-quit_button = Button(120, 200, 150, 50, BLACK, "Quit")
-flappy = Button(425, 130, 300, 90, BLACK, "Flappy Bird") #tr
-photo = Button(425, 330, 300, 90, BLACK, "Photobooth") #br
-hang = Button(80, 130, 300, 90, BLACK, "Hangman") #tl
-randomy = Button(80, 330, 300, 90, BLACK, "Random Num Gen") # bl
-buttons = [flappy, hang, randomy, photo]
+b_1 = Button(190, 110, 120, 120, WHITE, "")
+b_2 = Button(190+120+5, 110, 120, 120, WHITE, "")
+b_3 = Button(190+240, 110, 120, 120, WHITE, "")
+
+b_4 = Button(190, 110+120+5, 120, 120, WHITE, "")
+b_5 = Button(190+120+5, 110+120+5, 120, 120, WHITE, "")
+b_6 = Button(190+240, 110+120+5, 120, 120, WHITE, "")
+
+b_7 = Button(190, 110+240, 120, 120, WHITE, "")
+b_8 = Button(190+120+5, 110+240, 120, 120, WHITE, "")
+b_9 = Button(190+240, 110+240, 120, 120, WHITE, "")
+
+buttons = [b_1, b_2, b_3, b_4, b_5, b_6, b_7, b_8, b_9]
 
 #example funcs
 def start_game():
@@ -92,29 +100,55 @@ def draw():
     win.fill(WHITE)
 
     #draw title
-    text = TITLE_FONT.render("PYCADE", 1, BLACK)
+    text = TITLE_FONT.render("TIC TAC TOE", 1, BLACK)
     win.blit(text, (WIDTH/2 - text.get_width()/2, 20))
 
     #draw lines
-    pygame.draw.rect(win, BLACK, Rect(284, 94, 225, 5)) #underline
-    pygame.draw.rect(win, BLACK, Rect(400, 110, 5, 335)) #dividing line
-
+    pygame.draw.rect(win, BLACK, Rect(220, 94, 375, 5)) #underline
     #draw buttons
     for button in buttons:
         button.drawButton(win)
+        if button.text:
+            button.setText(win, button.text)
+    #draw board
+    pygame.draw.rect(win, BLACK, Rect(310, 110, 5, 120*3))
+    pygame.draw.rect(win, BLACK, Rect(310+120, 110, 5, 120*3))
+    pygame.draw.rect(win, BLACK, Rect(310-120, 110+120, 120*3, 5))
+    pygame.draw.rect(win, BLACK, Rect(310-120, 110+120*2, 120*3, 5))
+
+
     
     pygame.display.update()
 
 def button_clicked(button):
-    if button == hang:
-        subprocess.run(["python", hang_file_path])
-    elif button == flappy:
-        subprocess.run(["python", flap_file_path])
-    elif button == randomy:
-        subprocess.run(["python", rand_file_path])
-    elif button == photo:
-        subprocess.run(["python", photo_file_path])
-#buttons = [flappy, hang, randomy, photo]
+    if button == b_1:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_2:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_3:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_4:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_5:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_6:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_7:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_8:
+        if not button.text:
+            button.setText(win, "x")
+    elif button == b_9:
+        if not button.text:
+            button.setText(win, "x")
+    pygame.display.update()
 
 
 def display_message(message):
@@ -138,7 +172,7 @@ while run:
                 if button.rect.collidepoint(pos):
                     # Button clicked! Call a function or perform an action.
                     button_clicked(button)
-            #print(pygame.mouse.get_pos())
+            print(pygame.mouse.get_pos())
             
     #pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
 

@@ -51,7 +51,14 @@ class Button:
         self.text = text
 
     def drawButton(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
+        # Check if the mouse is hovering over the button
+        if self.rect.collidepoint(pygame.mouse.get_pos()):
+            # Use a lighter color when the mouse is hovering
+            hover_color = tuple(min(c + 30, 255) for c in self.color)
+            pygame.draw.rect(screen, hover_color, self.rect)
+        else:
+            pygame.draw.rect(screen, self.color, self.rect)
+        
         font = pygame.font.Font(None, 24)
         text = font.render(self.text, True, WHITE)
         text_rect = text.get_rect(center=self.rect.center)

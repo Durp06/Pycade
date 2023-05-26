@@ -3,8 +3,14 @@ import os
 import pygame
 import random
 from pygame.locals import *
+import subprocess
 
 directory = os.getcwd()
+hang_file_path = f"{directory}\\hangman.py"
+flap_file_path = f"{directory}\\flappy.py"
+photo_file_path = f"{directory}\\photobooth.py"
+rand_file_path = f"{directory}\\random_1.py"
+
 #window
 pygame.init()
 WIDTH = 800
@@ -29,22 +35,6 @@ LETTER_FONT = pygame.font.SysFont("comicsans", 30)
 WORD_FONT = pygame.font.SysFont("comicsans", 50)
 TITLE_FONT = pygame.font.SysFont("comicsans", 60)
 
-#images
-images = []
-for i in range(7):
-    image = pygame.image.load(f"{directory}\\hangman-sprites\\hangman_" + str(i) + ".png")
-    images.append(image)
-
-#game variables
-hangman_status = 6
-words = ["VSCODE", "IGKNIGHTER", "PYTHON", "JAVA", "MAXWELL", "SCIENCE", 
-    "ROBOTICS", "CODE", "ECLIPSE", "BUNNY", "DISCORD", "SCORPION", "CAT", 
-    "DOG", "PARROT", "MONKEY", "BANNANA", "TECH", "GERMAN", "AMERICAN", 
-    "TANK", "BRITISH", "INDIAN", "ITALIAN", "CUBAN", "SYSTEM", "JEWISH", 
-    "CHRISTIAN", "GAY", "TRANS", "BI", "COPE", "MADDOX", "CHUCK"]
-word = random.choice(words)
-guessed = []
-
 #colors
 WHITE = (255,255,255)
 BLACK = (0, 0, 0,)
@@ -53,6 +43,43 @@ BLACK = (0, 0, 0,)
 FPS = 60
 clock = pygame.time.Clock()
 run = True
+
+class Button:
+    def __init__(self, x, y, width, height, color, text):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+        self.text = text
+
+    def drawButton(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+        font = pygame.font.Font(None, 24)
+        text = font.render(self.text, True, WHITE)
+        text_rect = text.get_rect(center=self.rect.center)
+        screen.blit(text, text_rect)
+
+    #draw buttons
+    # pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
+    # pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2) # bottom right
+    # pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2) # top left
+    # pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2) # bottom left
+
+#buttons
+start_button = Button(100, 100, 150, 50, BLACK, "Start")
+quit_button = Button(100, 200, 150, 50, BLACK, "Quit")
+flappy = Button(425, 130, 300, 90, BLACK, "Flappy Bird") #tr
+photo = Button(425, 330, 300, 90, BLACK, "Photobooth") #br
+hang = Button(80, 130, 300, 90, BLACK, "Hangman") #tl
+randomy = Button(80, 330, 300, 90, BLACK, "Random Num Gen") # bl
+buttons = [flappy, hang, randomy, photo]
+
+#example funcs
+def start_game():
+    print("Starting the game!")
+
+def quit_game():
+    print("Quitting the game!")
+    pygame.quit()
+    
 
 def draw():
     win.fill(WHITE)
@@ -66,13 +93,21 @@ def draw():
     pygame.draw.rect(win, BLACK, Rect(400, 110, 5, 335)) #dividing line
 
     #draw buttons
-    pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
-    pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2) # bottom right
-    pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2) # top left
-    pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2) # bottom left
-    
+    for button in buttons:
+        button.drawButton(win)
     
     pygame.display.update()
+
+def button_clicked(button):
+    if button == hang:
+        subprocess.run(["python", hang_file_path])
+    elif button == flappy:
+        subprocess.run(["python", flap_file_path])
+    elif button == randomy:
+        subprocess.run(["python", rand_file_path])
+    elif button == photo:
+        subprocess.run(["python", photo_file_path])
+#buttons = [flappy, hang, randomy, photo]
 
 
 def display_message(message):
@@ -91,26 +126,17 @@ while run:
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            m_x, m_y = pygame.mouse.get_pos()
-            print(pygame.mouse.get_pos())
+            pos = pygame.mouse.get_pos()
+            for button in buttons:
+                if button.rect.collidepoint(pos):
+                    # Button clicked! Call a function or perform an action.
+                    button_clicked(button)
+            #print(pygame.mouse.get_pos())
             
     #pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
 
 
     draw()
 
-    won = True
-    for letter in word:
-        if letter not in guessed:
-            won = False
-            break
-    
-    if won:
-        display_message("You Won!")
-        break
-
-    if hangman_status == 0:
-        display_message("nope")
-        break
 
 pygame.quit()

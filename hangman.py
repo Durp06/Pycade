@@ -41,7 +41,7 @@ words = ["VSCODE", "IGKNIGHTER", "PYTHON", "JAVA", "MAXWELL", "SCIENCE",
     "ROBOTICS", "CODE", "ECLIPSE", "BUNNY", "DISCORD", "SCORPION", "CAT", 
     "DOG", "PARROT", "MONKEY", "BANNANA", "TECH", "GERMAN", "AMERICAN", 
     "TANK", "BRITISH", "INDIAN", "ITALIAN", "CUBAN", "SYSTEM", "JEWISH", 
-    "CHRISTIAN", "GAY", "TRANS", "BI", "COPE", "MADDOX", "CHUCK"]
+    "CHRISTIAN", "GAY", "TRANS", "BI", "COPE", "MADDOX", "CHUCK", "SOON"]
 word = random.choice(words)
 guessed = []
 
@@ -84,10 +84,25 @@ def draw():
 def display_message(message):
     pygame.time.delay(1000) #wait 1 second
     win.fill(WHITE) #fill screen with blank white
+
     text = WORD_FONT.render(message, 1, BLACK) #render param 'message' 
     win.blit(text, (WIDTH/2 - text.get_width()/2, HEIGHT/2 - text.get_height()/2)) # blit/put text in middle of screen
+
     pygame.display.update() #update screen
     pygame.time.delay(3000) #wait 3 seconds
+
+def display_message_lose(message, wordd):
+    pygame.time.delay(1000) 
+    win.fill(WHITE) 
+
+    text = WORD_FONT.render(message, 1, BLACK) 
+    win.blit(text, (WIDTH/2 - text.get_width()/2, HEIGHT/2 - text.get_height()/2)) 
+
+    text_2 = WORD_FONT.render(wordd, 1, BLACK) 
+    win.blit(text_2, (WIDTH/3 - text.get_width()/2, HEIGHT/3 - text.get_height()/2)) 
+
+    pygame.display.update() 
+    pygame.time.delay(3000) 
         
 
 while run:
@@ -121,7 +136,7 @@ while run:
         break
 
     if hangman_status == 0:
-        display_message("nope")
+        display_message_lose("nope", "Word was: " + word)
         break
 
 pygame.quit()

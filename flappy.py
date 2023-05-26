@@ -26,14 +26,14 @@ class Bird(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.images =  [pygame.image.load('assets/flappy_sprites/bluebird-upflap.png').convert_alpha(),
-                        pygame.image.load('assets/flappy_sprites/bluebird-midflap.png').convert_alpha(),
-                        pygame.image.load('assets/flappy_sprites/bluebird-downflap.png').convert_alpha()]
+        self.images =  [pygame.image.load('assets/flappy_sprites/yellowbird-upflap.png').convert_alpha(),
+                        pygame.image.load('assets/flappy_sprites/yellowbird-midflap.png').convert_alpha(),
+                        pygame.image.load('assets/flappy_sprites/yellowbird-downflap.png').convert_alpha()]
 
         self.speed = SPEED
 
         self.current_image = 0
-        self.image = pygame.image.load('assets/flappy_sprites/bluebird-upflap.png').convert_alpha()
+        self.image = pygame.image.load('assets/flappy_sprites/yellowbird-upflap.png').convert_alpha()
         self.mask = pygame.mask.from_surface(self.image)
 
         self.rect = self.image.get_rect()

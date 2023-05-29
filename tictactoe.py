@@ -40,6 +40,7 @@ GREEN = (0, 255, 0)
 FPS = 60
 clock = pygame.time.Clock()
 run = True
+turn_count = 0
 
 class Button:
     def __init__(self, x, y, width, height, color, text):
@@ -57,19 +58,25 @@ class Button:
             pygame.draw.rect(screen, self.color, self.rect)
         
         font = pygame.font.Font(None, 80)
-        text = font.render(self.text, True, BLACK)
+        text = font.render(str(self.text), True, BLACK)
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
 
     def setText(self, screen, msg):
         self.text = msg
         font = pygame.font.Font(None, 80)
-        text = font.render(msg, True, BLACK)
+        text = font.render(str(msg), True, BLACK)
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
     
     def getText(self):
         return self.text
+    
+    def getTurn(turn):
+        if turn_count % 2 == 0: #even
+            return "X"
+        elif turn_count % 2 != 0:
+            return "O"
 
 
 #buttons
@@ -170,7 +177,8 @@ while run:
             pos = pygame.mouse.get_pos()
             for button in buttons:
                 if button.rect.collidepoint(pos):
-                    # Button clicked! Call a function or perform an action.
+                    # Button clicked
+                    turn_count += 1
                     button_clicked(button)
             print(pygame.mouse.get_pos())
             

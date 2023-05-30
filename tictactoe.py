@@ -40,7 +40,7 @@ GREEN = (0, 255, 0)
 FPS = 60
 clock = pygame.time.Clock()
 run = True
-turn_count = 0
+turn_count = -1
 
 class Button:
     def __init__(self, x, y, width, height, color, text):
@@ -72,11 +72,7 @@ class Button:
     def getText(self):
         return self.text
     
-    def getTurn(turn):
-        if turn_count % 2 == 0: #even
-            return "X"
-        elif turn_count % 2 != 0:
-            return "O"
+
 
 
 #buttons
@@ -110,6 +106,19 @@ def draw():
     text = TITLE_FONT.render("TIC TAC TOE", 1, BLACK)
     win.blit(text, (WIDTH/2 - text.get_width()/2, 20))
 
+    #draw player turn
+    text = WORD_FONT.render("TURN:", 1, BLACK)
+    win.blit(text, (600, 155))
+
+    if turn_count == -1:
+        text = LETTER_FONT.render("Player 1", 1, BLACK)
+
+    elif turn_count % 2 != 0: #even
+        text = LETTER_FONT.render("Player 1", 1, BLACK)
+    else:
+        text = LETTER_FONT.render("Player 2", 1, BLACK)
+    win.blit(text, (610, 230))
+
     #draw lines
     pygame.draw.rect(win, BLACK, Rect(220, 94, 375, 5)) #underline
     #draw buttons
@@ -130,31 +139,58 @@ def draw():
 def button_clicked(button):
     if button == b_1:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_2:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_3:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_4:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_5:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_6:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_7:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_8:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     elif button == b_9:
         if not button.text:
-            button.setText(win, "x")
+            if turn_count % 2 == 0: #even:
+                button.setText(win, "X")
+            else:
+                button.setText(win, "O")
     pygame.display.update()
 
 
@@ -179,6 +215,7 @@ while run:
                 if button.rect.collidepoint(pos):
                     # Button clicked
                     turn_count += 1
+                    print(turn_count)
                     button_clicked(button)
             print(pygame.mouse.get_pos())
             

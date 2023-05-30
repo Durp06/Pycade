@@ -10,6 +10,7 @@ hang_file_path = f"{directory}\\hangman.py"
 flap_file_path = f"{directory}\\flappy.py"
 photo_file_path = f"{directory}\\photobooth.py"
 rand_file_path = f"{directory}\\random_1.py"
+ttt_file_path = f"{directory}\\tictactoe.py"
 
 #window
 pygame.init()
@@ -74,10 +75,11 @@ class Button:
 start_button = Button(120, 120, 150, 50, BLACK, "Start")
 quit_button = Button(120, 200, 150, 50, BLACK, "Quit")
 flappy = Button(425, 130, 300, 90, BLACK, "Flappy Bird") #tr
+ttt = Button(700, 10, 90, 90, BLACK, "Tic Tac Toe")
 photo = Button(425, 330, 300, 90, BLACK, "Photobooth") #br
 hang = Button(80, 130, 300, 90, BLACK, "Hangman") #tl
 randomy = Button(80, 330, 300, 90, BLACK, "Random Num Gen") # bl
-buttons = [flappy, hang, randomy, photo]
+buttons = [flappy, hang, randomy, photo, ttt]
 
 #example funcs
 def start_game():
@@ -114,6 +116,8 @@ def button_clicked(button):
         subprocess.run(["python", rand_file_path])
     elif button == photo:
         subprocess.run(["python", photo_file_path])
+    elif button == ttt:
+        subprocess.run(["python", ttt_file_path])
 #buttons = [flappy, hang, randomy, photo]
 
 

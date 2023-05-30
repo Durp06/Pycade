@@ -20,11 +20,7 @@ GAP = 20
 letters = []
 startx = round((WIDTH - (RADIUS * 2 + GAP) * 13) / 2)
 starty = 370
-A = 65
-for i in range (26): 
-    x = startx + GAP * 2 + ((RADIUS * 2 + GAP ) * (i % 13)) 
-    y = starty + ((i // 13) * (GAP + 25) + RADIUS * 2 ) 
-    letters.append([x, y, chr(A+i), True]) 
+
 
 #font
 LETTER_FONT = pygame.font.SysFont("comicsans", 30)
@@ -40,7 +36,12 @@ GREEN = (0, 255, 0)
 FPS = 60
 clock = pygame.time.Clock()
 run = True
+
+#game vars
 turn_count = -1
+board = [["h", "h", "h"],
+        ["h", "h", "h"],
+        ["h", "h", "h"]]
 
 class Button:
     def __init__(self, x, y, width, height, color, text):
@@ -97,7 +98,6 @@ def start_game():
 def quit_game():
     print("Quitting the game!")
     pygame.quit()
-    
 
 def draw():
     win.fill(WHITE)
@@ -141,56 +141,74 @@ def button_clicked(button):
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[0][0] == "x"
             else:
                 button.setText(win, "O")
+                board[0][0] == "o"
     elif button == b_2:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[0][1] == "x"
             else:
                 button.setText(win, "O")
+                board[0][1] == "o"
     elif button == b_3:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[0][2] == "x"
             else:
                 button.setText(win, "O")
+                board[0][2] == "o"
     elif button == b_4:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[1][0] == "x"
             else:
                 button.setText(win, "O")
+                board[1][0] == "o"
     elif button == b_5:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[1][1] == "x"
             else:
                 button.setText(win, "O")
+                board[1][1] == "o"
     elif button == b_6:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[1][2] == "x"
             else:
                 button.setText(win, "O")
+                board[1][2] == "o"
     elif button == b_7:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[2][0] == "x"
             else:
                 button.setText(win, "O")
+                board[2][0] == "o"
     elif button == b_8:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[2][1] == "x"
             else:
                 button.setText(win, "O")
+                board[2][1] == "o"
     elif button == b_9:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
+                board[2][2] == "x"
             else:
                 button.setText(win, "O")
+                board[2][2] == "o"
     pygame.display.update()
 
 

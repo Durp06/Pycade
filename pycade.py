@@ -65,12 +65,6 @@ class Button:
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
 
-    #draw buttons
-    # pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
-    # pygame.draw.rect(win, BLACK, Rect(425, 330, 300, 90), 2) # bottom right
-    # pygame.draw.rect(win, BLACK, Rect(80, 130, 300, 90), 2) # top left
-    # pygame.draw.rect(win, BLACK, Rect(80 ,330, 300, 90), 2) # bottom left
-
 #buttons
 start_button = Button(120, 120, 150, 50, BLACK, "Start")
 quit_button = Button(120, 200, 150, 50, BLACK, "Quit")

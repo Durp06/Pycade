@@ -141,74 +141,74 @@ def button_clicked(button):
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[0][0] == "x"
+                board[0][0] = "x"
             else:
                 button.setText(win, "O")
-                board[0][0] == "o"
+                board[0][0] = "o"
     elif button == b_2:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[0][1] == "x"
+                board[0][1] = "x"
             else:
                 button.setText(win, "O")
-                board[0][1] == "o"
+                board[0][1] = "o"
     elif button == b_3:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[0][2] == "x"
+                board[0][2] = "x"
             else:
                 button.setText(win, "O")
-                board[0][2] == "o"
+                board[0][2] = "o"
     elif button == b_4:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[1][0] == "x"
+                board[1][0] = "x"
             else:
                 button.setText(win, "O")
-                board[1][0] == "o"
+                board[1][0] = "o"
     elif button == b_5:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[1][1] == "x"
+                board[1][1] = "x"
             else:
                 button.setText(win, "O")
-                board[1][1] == "o"
+                board[1][1] = "o"
     elif button == b_6:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[1][2] == "x"
+                board[1][2] = "x"
             else:
                 button.setText(win, "O")
-                board[1][2] == "o"
+                board[1][2] = "o"
     elif button == b_7:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[2][0] == "x"
+                board[2][0] = "x"
             else:
                 button.setText(win, "O")
-                board[2][0] == "o"
+                board[2][0] = "o"
     elif button == b_8:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[2][1] == "x"
+                board[2][1] = "x"
             else:
                 button.setText(win, "O")
-                board[2][1] == "o"
+                board[2][1] = "o"
     elif button == b_9:
         if not button.text:
             if turn_count % 2 == 0: #even:
                 button.setText(win, "X")
-                board[2][2] == "x"
+                board[2][2] = "x"
             else:
                 button.setText(win, "O")
-                board[2][2] == "o"
+                board[2][2] = "o"
     pygame.display.update()
 
 
@@ -219,7 +219,60 @@ def display_message(message):
     win.blit(text, (WIDTH/2 - text.get_width()/2, HEIGHT/2 - text.get_height()/2)) # blit/put text in middle of screen
     pygame.display.update() #update screen
     pygame.time.delay(3000) #wait 3 seconds
-        
+
+def winCheckX(matrix):
+    # Win conditions: Horizontal, Vertical, Main Diagonal, Other Diagonal
+    win_conditions = [
+        matrix[0] == ['x', 'x', 'x'],
+        matrix[1] == ['x', 'x', 'x'],
+        matrix[2] == ['x', 'x', 'x'],
+        [matrix[i][0] for i in range(3)] == ['x', 'x', 'x'],
+        [matrix[i][1] for i in range(3)] == ['x', 'x', 'x'],
+        [matrix[i][2] for i in range(3)] == ['x', 'x', 'x'],
+        [matrix[i][i] for i in range(3)] == ['x', 'x', 'x'],
+        [matrix[i][2-i] for i in range(3)] == ['x', 'x', 'x']
+    ]
+
+    return any(win_conditions)
+
+
+def winCheckO(matrix):
+    # Win conditions: Horizontal, Vertical, Main Diagonal, Other Diagonal
+    win_conditions = [
+        matrix[0] == ['o', 'o', 'o'],
+        matrix[1] == ['o', 'o', 'o'],
+        matrix[2] == ['o', 'o', 'o'],
+        [matrix[i][0] for i in range(3)] == ['o', 'o', 'o'],
+        [matrix[i][1] for i in range(3)] == ['o', 'o', 'o'],
+        [matrix[i][2] for i in range(3)] == ['o', 'o', 'o'],
+        [matrix[i][i] for i in range(3)] == ['o', 'o', 'o'],
+        [matrix[i][2-i] for i in range(3)] == ['o', 'o', 'o']
+    ]
+
+    return any(win_conditions)
+
+def checkNotH (matrix):
+    # Win conditions: Horizontal, Vertical, Main Diagonal, Other Diagonal
+    win_conditions = [
+        matrix[0] == ['h', 'h', 'h'],
+        matrix[1] == ['h', 'h', 'h'],
+        matrix[2] == ['h', 'h', 'h'],
+        [matrix[i][0] for i in range(3)] == ['h', 'h', 'h'],
+        [matrix[i][1] for i in range(3)] == ['h', 'h', 'h'],
+        [matrix[i][2] for i in range(3)] == ['h', 'h', 'h'],
+        [matrix[i][i] for i in range(3)] == ['h', 'h', 'h'],
+        [matrix[i][2-i] for i in range(3)] == ['h', 'h', 'h']
+    ]
+
+    return any(win_conditions)
+
+def display_message(message):
+    pygame.time.delay(1000) #wait 1 second
+    win.fill(WHITE) #fill screen with blank white
+    text = WORD_FONT.render(message, 1, BLACK) #render param 'message' 
+    win.blit(text, (WIDTH/2 - text.get_width()/2, HEIGHT/2 - text.get_height()/2)) # blit/put text in middle of screen
+    pygame.display.update() #update screen
+    pygame.time.delay(3000) #wait 3 seconds
 
 while run:
     clock.tick(FPS)
@@ -233,14 +286,19 @@ while run:
                 if button.rect.collidepoint(pos):
                     # Button clicked
                     turn_count += 1
-                    print(turn_count)
+                    #print(turn_count)
                     button_clicked(button)
             print(pygame.mouse.get_pos())
-            
+            print(board)
     #pygame.draw.rect(win, BLACK, Rect(425, 130, 300, 90)) # top right
-
 
     draw()
 
+    if winCheckX(board):
+        display_message('Player 1 wins!')
+        break
+    if winCheckO(board):
+        display_message('Player 2 wins!')
+        break
 
 pygame.quit()
